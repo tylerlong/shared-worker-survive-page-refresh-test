@@ -9,23 +9,18 @@
     <h1>Shared Worker Test</h1>
     <p id="status">Connecting...</p>
     <script>
-        // Register the Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js').then(() => {
-                console.log('Service Worker registered');
-            });
-        }
-
-        // Connect to the Shared Worker
         const worker = new SharedWorker('shared-worker.js');
         worker.port.start();
+        worker.port.postMessage('index.html');
 
-        // Send message to get the connection count
-        worker.port.postMessage('get-count');
-
-        // Display the connection count
+        // Handle the timestamp display from the Shared Worker
         worker.port.onmessage = (event) => {
+          console.log(event.data);
+          if(event.data === 'open-popup') {
+            window.open('popup.html', 'PopupClient', 'width=400,height=300');
+          } else if(event.data.startsWith('timestamp:')) {
             document.getElementById('status').innerText = event.data;
+          }
         };
     </script>
 </body>

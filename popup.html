@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popup</title>
+</head>
+<body>
+    <h1>Popup Client</h1>
+    <script>
+        const worker = new SharedWorker('shared-worker.js');
+        worker.port.start();
+        worker.port.postMessage('popup.html');
+        worker.port.onmessage = (event) => {
+            if (event.data === 'close') {
+                window.close();
+            }
+        };
+    </script>
+</body>
+</html>
