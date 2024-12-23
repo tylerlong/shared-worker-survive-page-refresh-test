@@ -11,13 +11,13 @@
     <script>
         // Register the Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').then(() => {
+            navigator.serviceWorker.register('service-worker.js').then(() => {
                 console.log('Service Worker registered');
             });
         }
 
         // Connect to the Shared Worker
-        const worker = new SharedWorker('/shared-worker.js');
+        const worker = new SharedWorker('shared-worker.js');
         worker.port.start();
 
         // Send message to get the connection count

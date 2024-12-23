@@ -14,7 +14,7 @@ async function keepSharedWorkerAlive() {
       console.log('Creating hidden iframe to keep Shared Worker alive');
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
-      iframe.src = '/hidden-client.html'; // A minimal HTML file that connects to the Shared Worker
+      iframe.src = 'hidden-client.html'; // A minimal HTML file that connects to the Shared Worker
       document.body.appendChild(iframe);
   }
 }

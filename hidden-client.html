@@ -6,7 +6,7 @@
 </head>
 <body>
     <script>
-        const worker = new SharedWorker('/shared-worker.js');
+        const worker = new SharedWorker('shared-worker.js');
         worker.port.start();
         worker.port.postMessage('get-count');
     </script>
