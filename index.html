@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Worker Test</title>
+</head>
+<body>
+    <h1>Shared Worker Test</h1>
+    <p id="status">Connecting...</p>
+    <script>
+        // Register the Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(() => {
+                console.log('Service Worker registered');
+            });
+        }
+
+        // Connect to the Shared Worker
+        const worker = new SharedWorker('/shared-worker.js');
+        worker.port.start();
+
+        // Send message to get the connection count
+        worker.port.postMessage('get-count');
+
+        // Display the connection count
+        worker.port.onmessage = (event) => {
+            document.getElementById('status').innerText = event.data;
+        };
+    </script>
+</body>
+</html>
